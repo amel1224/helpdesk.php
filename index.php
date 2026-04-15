@@ -1,7 +1,18 @@
 <?php
+include 'koneksi.php'; //Mengambil kabel koneksi
+
 if($_SERVER["REQUEST_METHOD"]=="POST"){
     $nama = $_POST['nama'];
     $laporan = $_POST['laporan'];
+
+    //Perintah  untuk memasukkan data ke tabel pengaduan
+    $query= "INSERT INTO pengaduan (nama, laporan) VALUES ('$nama', '$laporan')";
+
+    if (mysqli_query($conn, $query)) {
+        echo "<div style='color: green;'><b>Sukses!</b> Laporan berhasil disimpan ke database.</div><hr>";
+    } else {
+        echo "Error:" . mysqli_error($conn);
+    }
 
     echo "<div style='color:green;'><b>Sukses!</b>Laporan dari <b>$nama</b>telah diterima:<i>$laporan</i></div><hr>";
 }
